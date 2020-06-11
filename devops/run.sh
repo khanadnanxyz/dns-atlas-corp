@@ -1,3 +1,3 @@
 #!/bin/sh
 source venv/bin/activate
-exec gunicorn -b :5000 --workers=1 --access-logfile - --error-logfile - app:app
+exec gunicorn --chdir web main:app -w 1 --threads 2 -b 0.0.0.0:5000

@@ -1,7 +1,9 @@
 version: '3.5'
 services:
   api:
-    build: ./dev.Dockerfile
+    build:
+      context: .
+      dockerfile: ./dev.Dockerfile
     ports:
       - 8080:5000
     volumes:
