@@ -1,0 +1,1 @@
+from web.services.calculate import calc_location

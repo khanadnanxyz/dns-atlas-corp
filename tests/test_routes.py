@@ -1,7 +1,7 @@
 import json
 
 try:
-    from app import app
+    from web.app import app
     import unittest
 except Exception as e:
     print('Modules Missing {}'.format(e))
@@ -89,7 +89,3 @@ class AtlasTest(unittest.TestCase):
         data = response.data
         print(data)
         self.assertTrue(b'{"loc":1389.57}\n' in data)
-
-
-if __name__ == "__main__":
-    unittest.main()

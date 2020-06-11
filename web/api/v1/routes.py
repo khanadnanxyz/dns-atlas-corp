@@ -5,10 +5,10 @@ from marshmallow import ValidationError
 
 from flask import current_app
 
-from api.helper import response_builder
-from exceptions.error import InvalidUsage, InvalidRequestException
-from serializers.schema import DataSchema
-from services.calculate import calc_location
+from web.api.helper import response_builder
+from web.exceptions import InvalidUsage, InvalidRequestException
+from web.serializers import DataSchema
+from web.services import calc_location
 
 mod = Blueprint('v1', __name__)
 data_schema = DataSchema()
