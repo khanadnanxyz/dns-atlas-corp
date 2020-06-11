@@ -4,9 +4,9 @@ from flask_limiter.util import get_remote_address
 from marshmallow import ValidationError
 
 from flask import current_app
-from exceptions.error import InvalidUsage
-from helpers.validate import DataSchema
-from services.calculate import calc_distance
+from exceptions.error import InvalidUsage, InvalidRequestException
+from serializers.schema import DataSchema
+from services.calculate import calc_location
 
 mod = Blueprint('v1', __name__)
 data_schema = DataSchema()
@@ -17,10 +17,25 @@ limiter = Limiter(
 )
 
 
-@mod.errorhandler(InvalidUsage)
+@mod.errorhandler(Exception)
 def handle_invalid_usage(error):
-    response = jsonify(error.to_dict())
-    response.status_code = error.status_code
+    if isinstance(error, InvalidUsage):
+        response = jsonify(error.to_dict())
+        response.status_code = error.status_code
+        return response
+
+    if isinstance(error, ValidationError):
+        response = jsonify(error.messages)
+        response.status_code = 422
+        return response
+
+    if isinstance(error, InvalidRequestException):
+        response = jsonify(error.to_dict())
+        response.status_code = error.status_code
+        return response
+
+    response = jsonify({'message': 'Internal Server Error'})
+    response.status_code = 500
     return response
 
 
@@ -29,12 +44,9 @@ def handle_invalid_usage(error):
 def loc():
     json_data = request.get_json(force=True)
     if not json_data:
-        return {'message': 'No input data provided'}, 400
+        raise InvalidRequestException('Request data Not valid')
 
-    try:
-        data = data_schema.load(json_data)
-    except ValidationError as errors:
-        return jsonify({'ok': False, 'message': 'Bad request: {}'.format(errors)}), 422
+    data = data_schema.load(json_data)
 
     x = data['x']
     y = data['y']
@@ -42,8 +54,8 @@ def loc():
     vel = data['vel']
     id = current_app.config['SECTOR_ID']
     try:
-        result = calc_distance(id, x, y, z, vel)
+        result = calc_location(id, x, y, z, vel)
         response = jsonify({'loc': result}), 200
     except:
-        raise InvalidUsage('This view is gone', status_code=410)
+        raise InvalidUsage('This could not calculate')
     return response
