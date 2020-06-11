@@ -4,6 +4,8 @@ from flask_limiter.util import get_remote_address
 from marshmallow import ValidationError
 
 from flask import current_app
+
+from api.helper import response_builder
 from exceptions.error import InvalidUsage, InvalidRequestException
 from serializers.schema import DataSchema
 from services.calculate import calc_location
@@ -55,7 +57,7 @@ def loc():
     id = current_app.config['SECTOR_ID']
     try:
         result = calc_location(id, x, y, z, vel)
-        response = jsonify({'loc': result}), 200
+        response = response_builder(message='Calculation Completed', data=result, status_code=200)
     except:
         raise InvalidUsage('This could not calculate')
     return response
