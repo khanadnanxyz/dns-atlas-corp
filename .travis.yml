@@ -12,7 +12,7 @@ script:
 
 after_script:
   - pip install coverage
-  - python -m pytest --cov=web
+  - python -m pytest  --cov-report term --cov=web
 
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -23,4 +23,4 @@ deploy:
     branch: master
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - codecov
