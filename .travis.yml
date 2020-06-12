@@ -11,8 +11,8 @@ script:
     -t khanadnanxyz/dns:latest
 
 after_script:
-  - pip install coverage
-  - python -m pytest  --cov-report term --cov=web
+  - pip install codecov
+  - python -m pytest --cov-report term --cov=web
 
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
