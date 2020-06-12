@@ -1,4 +1,5 @@
 import json
+import os
 
 try:
     from web.app import app
@@ -83,7 +84,6 @@ class AtlasTest(unittest.TestCase):
             "z": "789.89",
             "vel": "20.0"
         }
-
         response = client.post(url, data=json.dumps(mock_request_data))
         data = response.data
         self.assertTrue(b'{"loc":1389.57,"message":"Calculation Completed","status_code":200}\n' in data)

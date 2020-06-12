@@ -51,6 +51,13 @@ coverage.xml
 .pytest_cache/
 cover/
 
+
+# dashboard database
+
+web/flask_monitoringdashboard.db
+tests/flask_monitoringdashboard.db
+flask_monitoringdashboard.db
+
 # Translations
 *.mo
 *.pot
@@ -137,7 +144,5 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-web/flask_monitoringdashboard.db
-tests/flask_monitoringdashboard.db
 
 .idea/
