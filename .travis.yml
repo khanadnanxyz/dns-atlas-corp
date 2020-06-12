@@ -7,6 +7,7 @@ services:
 install:
   - pip install codecov
   - pip install pytest-cov
+  - pip install pytest
 
 script:
   - echo $SHORT_SHA
