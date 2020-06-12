@@ -5,10 +5,7 @@ services:
   - docker
 
 install:
-  - pip install codecov
-  - pip install pytest-cov
-  - pip install pytest
-  - pip install coverage
+  - pip install -r requirements.txt
 
 script:
   - echo $SHORT_SHA
