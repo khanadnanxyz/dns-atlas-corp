@@ -8,7 +8,7 @@ script:
     -t khanadnanxyz/dns:latest
 
 after_script:
-  - docker images
+  - python -m pytest --cov=web
 
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -17,3 +17,6 @@ deploy:
   script: docker push khanadnanxyz/dns:latest
   on:
     branch: master
+
+after_success:
+  - codecov
