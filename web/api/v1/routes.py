@@ -59,5 +59,5 @@ def loc():
         result = calc_location(id, x, y, z, vel)
         response = response_builder(message='Calculation Completed', data=result, status_code=200)
     except:
-        raise InvalidUsage('This could not calculate')
+        raise InvalidUsage('Calculated Failed')
     return response

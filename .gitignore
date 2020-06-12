@@ -138,5 +138,6 @@ dmypy.json
 cython_debug/
 
 web/flask_monitoringdashboard.db
+tests/flask_monitoringdashboard.db
 
 .idea/

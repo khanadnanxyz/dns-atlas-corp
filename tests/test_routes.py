@@ -56,8 +56,7 @@ class AtlasTest(unittest.TestCase):
         mock_request_data = {}
 
         response = client.post(url, data=json.dumps(mock_request_data))
-        status_code = response.status_code
-        self.assertEqual(status_code, 400)
+        self.assertTrue(b'{"message":"Internal Server Error","status_code":500}\n' in response.data)
 
     def test_loc_faulty_data_failure(self):
         client = app.test_client()
@@ -71,8 +70,8 @@ class AtlasTest(unittest.TestCase):
         }
 
         response = client.post(url, data=json.dumps(mock_request_data))
-        status_code = response.status_code
-        self.assertEqual(status_code, 422)
+        self.assertTrue(
+            b'{"message":{"vel":["Not a valid number."],"z":["Not a valid number."]},"status_code":422}\n' in response.data)
 
     def test_loc_response_success(self):
         client = app.test_client()
@@ -87,5 +86,4 @@ class AtlasTest(unittest.TestCase):
 
         response = client.post(url, data=json.dumps(mock_request_data))
         data = response.data
-        print(data)
-        self.assertTrue(b'{"loc":1389.57}\n' in data)
+        self.assertTrue(b'{"loc":1389.57,"message":"Calculation Completed","status_code":200}\n' in data)
