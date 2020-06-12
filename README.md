@@ -2,6 +2,8 @@
   
 [![Build Status](https://travis-ci.com/khanadnanxyz/dns-atlas-corp.svg?branch=master)](https://travis-ci.com/khanadnanxyz/dns-atlas-corp)
 
+[![codecov](https://codecov.io/gh/khanadnanxyz/dns-atlas-corp/branch/master/graph/badge.svg)](https://codecov.io/gh/khanadnanxyz/dns-atlas-corp)
+
 run dns-service with docker-compose
 
     docker-compose up -d
