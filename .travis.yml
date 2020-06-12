@@ -12,6 +12,8 @@ script:
   - docker build .
     -f ./devops/Dockerfile
     -t khanadnanxyz/dns:latest
+
+before_script:
   - python -m pytest --cov-report term --cov=web
 
 
@@ -24,5 +26,5 @@ deploy:
   on:
     branch: master
 
-after_script:
+after_success:
   - codecov
