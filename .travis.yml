@@ -4,23 +4,25 @@ python:
 services:
   - docker
 
+install:
+  - pip install codecov
+
 script:
   - echo $SHORT_SHA
   - docker build .
     -f ./devops/Dockerfile
     -t khanadnanxyz/dns:latest
-
-after_script:
-  - pip install codecov
   - python -m pytest --cov-report term --cov=web
 
-after_success:
-  - codecov
 
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 deploy:
   provider: script
   script: docker push khanadnanxyz/dns:latest
   on:
     branch: master
+
+after_script:
+  - codecov
