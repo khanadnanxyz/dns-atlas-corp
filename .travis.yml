@@ -1,3 +1,6 @@
+language: python
+python:
+  - "3.7"
 services:
   - docker
 
@@ -8,7 +11,8 @@ script:
     -t khanadnanxyz/dns:latest
 
 after_script:
-  - conda install -c conda-forge codecov
+  - pip install coverage
+  - python -m pytest --cov=web
 
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -19,4 +23,4 @@ deploy:
     branch: master
 
 after_success:
-  - codecov
+  - bash <(curl -s https://codecov.io/bash)
