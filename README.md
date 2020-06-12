@@ -16,3 +16,5 @@ run dns-service from docker image
 deploy dns-service with helm(v3.0.0) into K8s  
  
      helm install dns ./devops/dns
+
+api documentation ( postman [collection](https://documenter.getpostman.com/view/814321/SzzhcxU5) )
