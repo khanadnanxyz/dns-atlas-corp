@@ -8,6 +8,7 @@ install:
   - pip install codecov
   - pip install pytest-cov
   - pip install pytest
+  - pip install coverage
 
 script:
   - echo $SHORT_SHA
