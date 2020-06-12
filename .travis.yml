@@ -8,7 +8,7 @@ script:
     -t khanadnanxyz/dns:latest
 
 after_script:
-  - python -m pytest --cov=web
+  - conda install -c conda-forge codecov
 
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
