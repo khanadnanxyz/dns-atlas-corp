@@ -137,6 +137,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-flask_monitoringdashboard.db
+web/flask_monitoringdashboard.db
 
 .idea/

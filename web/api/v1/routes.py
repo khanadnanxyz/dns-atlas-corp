@@ -5,7 +5,7 @@ from marshmallow import ValidationError
 
 from flask import current_app
 
-from web.api.helper import response_builder
+from web.api.helper import response_builder, error_response_builder
 from web.exceptions import InvalidUsage, InvalidRequestException
 from web.serializers import DataSchema
 from web.services import calc_location
@@ -22,22 +22,22 @@ limiter = Limiter(
 @mod.errorhandler(Exception)
 def handle_invalid_usage(error):
     if isinstance(error, InvalidUsage):
-        response = jsonify(error.to_dict())
-        response.status_code = error.status_code
+        message = error.to_dict()
+        response = error_response_builder(message, error.status_code)
         return response
 
     if isinstance(error, ValidationError):
-        response = jsonify(error.messages)
-        response.status_code = 422
+        message = error.messages
+        response = error_response_builder(message, 422)
         return response
 
     if isinstance(error, InvalidRequestException):
-        response = jsonify(error.to_dict())
-        response.status_code = error.status_code
+        message = jsonify(error.to_dict())
+        response = error_response_builder(message, error.status_code)
         return response
 
-    response = jsonify({'message': 'Internal Server Error'})
-    response.status_code = 500
+    message = 'Internal Server Error'
+    response = error_response_builder(message, 500)
     return response
 
 
