@@ -19,6 +19,7 @@ limiter = Limiter(
 )
 
 
+# this gets all the Exceptions and response accordingly
 @mod.errorhandler(Exception)
 def handle_invalid_usage(error):
     if isinstance(error, InvalidUsage):
@@ -41,6 +42,13 @@ def handle_invalid_usage(error):
     return response
 
 
+'''
+This is the loc calculation function,
+rate limiting is used 50 per hour, 
+in an idea scenario, we will make it configurable.
+'''
+
+
 @mod.route('/loc', methods=['POST'])
 @limiter.limit("50 per hour")
 def loc():
@@ -48,12 +56,15 @@ def loc():
     if not json_data:
         raise InvalidRequestException('Request data Not valid')
 
+    # does the validation job
     data = data_schema.load(json_data)
 
     x = data['x']
     y = data['y']
     z = data['z']
     vel = data['vel']
+
+    # gets the SECTOR_ID from env
     id = current_app.config['SECTOR_ID']
     try:
         result = calc_location(id, x, y, z, vel)

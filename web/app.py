@@ -9,8 +9,10 @@ import flask_monitoringdashboard as dashboard
 app = Flask(__name__)
 app.config.from_object(config.ProductionConfig)
 
+# instantiate  rate limiter
 limiter.init_app(app)
 
+# this is used for monitoring the API
 dashboard.bind(app)
 dashboard.config.init_from(file='config/dashboard_config.cfg')
 

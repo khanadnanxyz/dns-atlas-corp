@@ -5,6 +5,6 @@ services:
       context: .
       dockerfile: ./dev.Dockerfile
     ports:
-      - 8080:5000
+      - 5000:5000
     volumes:
       - .:/app

@@ -1,3 +1,8 @@
+"""
+This classes helps us to organise errors centrally to have a control over them
+"""
+
+
 class InvalidUsage(Exception):
     status_code = 410
 

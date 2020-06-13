@@ -1,5 +1,9 @@
 from flask import jsonify
 
+'''
+There are two response builders to have a common response formatting across the api
+'''
+
 
 def response_builder(message, data, status_code):
     resp = {
