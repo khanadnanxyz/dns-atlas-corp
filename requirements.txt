@@ -20,7 +20,7 @@ limits==1.5.1
 MarkupSafe==1.1.1
 marshmallow==3.6.1
 more-itertools==8.3.0
-numpy==1.18.5
+numpy==1.22.0
 packaging==20.4
 pluggy==0.13.1
 psutil==5.7.0
